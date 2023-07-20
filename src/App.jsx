@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="layout__wrapper">
+      <DragDropContext
+        onDragEnd={() => {
+          console.log('drag and drop event');
+        }}
+      >
+        <div className="dashboard">
+          <div className="header">
+            <div>header</div>
+          </div>
+          <div className="body-box">
+            <div>bodyBox</div>;
+          </div>
+          <div className="footer">
+            <div>footer</div>;
+          </div>
+        </div>
+        <div className="sideContainer">
+          <Droppable droppableId="sideContainer" type="container">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                <Draggable draggableId="image" index={1}>
+                  {(provided) => (
+                    <div
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                    >
+                      Image
+                    </div>
+                  )}
+                </Draggable>
+                <Draggable draggableId="text" index={2}>
+                  {(provided) => (
+                    <div
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                    >
+                      Text
+                    </div>
+                  )}
+                </Draggable>
+                <Draggable draggableId="link" index={3}>
+                  {(provided) => (
+                    <div
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                    >
+                      Link
+                    </div>
+                  )}
+                </Draggable>
+              </div>
+            )}
+          </Droppable>
+        </div>
+      </DragDropContext>
+    </div>
+  );
+};
 
-export default App
+export default App;
