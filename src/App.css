@@ -1,42 +1,43 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.dashboard{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 8vh 3%;
+}
+.header{
+  border: dashed blue 3px;
+  border-radius: 4px;
+  min-width:75vw;
+  min-height: 15vh;
+  
+}
+.body-box{
+  border: dashed blue 3px;
+  border-radius: 4px;
+  min-width:75vw;
+  min-height: 50vh;
+}
+.footer{
+  border: dashed blue 3px;
+  border-radius: 4px;
+  min-width:75vw;
+  min-height: 15vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.sideContainer{
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  min-width: 15vw;
+  min-height: 80vh;
+  border: red dashed 2px;
+  border-radius: 4px;
+  margin: 10vh 3%;
 }
