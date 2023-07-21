@@ -8,20 +8,20 @@
   margin: 8vh 3%;
 }
 .header{
-  border: dashed blue 3px;
+  border:dotted blue 1px;
   border-radius: 4px;
   min-width:75vw;
   min-height: 15vh;
   
 }
 .body-box{
-  border: dashed blue 3px;
+  border: dotted blue 1px;
   border-radius: 4px;
   min-width:75vw;
   min-height: 50vh;
 }
 .footer{
-  border: dashed blue 3px;
+  border: dotted blue 1px;
   border-radius: 4px;
   min-width:75vw;
   min-height: 15vh;
@@ -37,7 +37,7 @@
   
   min-width: 15vw;
   min-height: 80vh;
-  border: red dashed 2px;
+  border: dotted blue 1px;
   border-radius: 4px;
   margin: 10vh 3%;
 }
