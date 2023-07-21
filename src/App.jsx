@@ -2,20 +2,22 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import './App.css';
 
 const App = () => {
+  const handleDragDrop = () => {
+    console.log('drag and drop event');
+  };
+
   return (
     <div className="layout__wrapper">
-      <DragDropContext
-        onDragEnd={() => {
-          console.log('drag and drop event');
-        }}
-      >
+      <DragDropContext onDragEnd={handleDragDrop}>
         <div className="dashboard">
           <div className="header">
             <div>header</div>
           </div>
+
           <div className="body-box">
-            <div>bodyBox</div>;
+            <div>bodyBox</div>
           </div>
+
           <div className="footer">
             <div>footer</div>;
           </div>
@@ -35,6 +37,7 @@ const App = () => {
                     </div>
                   )}
                 </Draggable>
+                {provided.placeholder}
                 <Draggable draggableId="text" index={2}>
                   {(provided) => (
                     <div
@@ -46,6 +49,7 @@ const App = () => {
                     </div>
                   )}
                 </Draggable>
+                {provided.placeholder}
                 <Draggable draggableId="link" index={3}>
                   {(provided) => (
                     <div
@@ -57,6 +61,7 @@ const App = () => {
                     </div>
                   )}
                 </Draggable>
+                {provided.placeholder}
               </div>
             )}
           </Droppable>
