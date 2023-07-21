@@ -1,3 +1,12 @@
+.layout__wrapper{
+  box-sizing: border-box;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
 .dashboard{
   display: flex;
   flex-direction: column;
@@ -14,17 +23,29 @@
   min-height: 15vh;
   
 }
-.body-box{
+.header > .headerContainer{
+  min-height: 15vh;
+  min-width: 100%;
+}
+.bodyBox{
   border: dotted blue 1px;
   border-radius: 4px;
   min-width:75vw;
   min-height: 50vh;
+}
+.bodyBox > .bodyBoxContainer{
+  min-height: 50vh;
+  min-width: 100%;
 }
 .footer{
   border: dotted blue 1px;
   border-radius: 4px;
   min-width:75vw;
   min-height: 15vh;
+}
+.footer > .footerContainer{
+  min-height: 15vh;
+  min-width: 100%;
 }
 
 .sideContainer{
