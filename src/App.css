@@ -55,10 +55,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  min-width: 15vw;
-  min-height: 80vh;
+  flex-wrap: nowrap;
+  width: 15vw;
+  height: 80vh;
   border: dotted blue 1px;
   border-radius: 4px;
   margin: 10vh 3%;
+}
+.sideContainer > .itemsSideContainer{
+  height: 80vh;
+  width: 15vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }

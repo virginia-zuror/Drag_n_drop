@@ -16,54 +16,176 @@ const App = () => {
   const [footerItems, setFooterItems] = useState([]);
 
   const handleDragDrop = (results) => {
-    const { source, destination, type } = results;
+    const { source, destination, draggableId } = results;
 
+    const getItemName = draggableId.split('_');
+    const typeOfItem = getItemName[0];
+    //destination = null, no action
     if (!destination) return;
 
+    // destination and index similar to previus state, no action
     if (
       source.droppableId === destination.droppableId &&
       source.index === destination.index
     )
       return;
 
-    if (destination.droppableId === 'sideContainer') {
-      const reorderedItems = [...items];
+    //only change index --> Reorder items
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index !== destination.index
+    ) {
+      //reorder items in header
+      if (source.droppableId === 'header') {
+        const reorderedItems = [...headerItems];
 
-      const sourceIndex = source.index;
-      const destinationIndex = destination.index;
+        const sourceIndex = source.index;
+        const destinationIndex = destination.index;
 
-      const [removedItem] = reorderedItems.splice(sourceIndex, 1);
-      reorderedItems.splice(destinationIndex, 0, removedItem);
+        const [removedItem] = reorderedItems.splice(sourceIndex, 1);
+        reorderedItems.splice(destinationIndex, 0, removedItem);
 
-      return setItems(reorderedItems);
+        return setHeaderItems(reorderedItems);
+      } else if (source.droppableId === 'bodyBox') {
+        //reorder items in bodyBox
+        const reorderedItems = [...bodyBoxItems];
+
+        const sourceIndex = source.index;
+        const destinationIndex = destination.index;
+
+        const [removedItem] = reorderedItems.splice(sourceIndex, 1);
+        reorderedItems.splice(destinationIndex, 0, removedItem);
+
+        return setBodyBoxItems(reorderedItems);
+      } else if (source.droppableId === 'footer') {
+        //reorder items in footer
+        const reorderedItems = [...footerItems];
+
+        const sourceIndex = source.index;
+        const destinationIndex = destination.index;
+
+        const [removedItem] = reorderedItems.splice(sourceIndex, 1);
+        reorderedItems.splice(destinationIndex, 0, removedItem);
+
+        return setFooterItems(reorderedItems);
+      }
     }
 
-    if (source.droppableId === 'sideContainer' && destination.droppableId === 'header') {
+    // add image to header
+    if (
+      source.droppableId === 'sideContainer' &&
+      destination.droppableId === 'header' &&
+      typeOfItem === 'Image'
+    ) {
       const draggedItem = items[source.index];
+
       setHeaderItems((prevItems) => {
         const updatedItems = [...prevItems];
         updatedItems.splice(destination.index, 0, draggedItem);
-        //console.log('headerItems', updatedItems);
+
         return updatedItems;
       });
     }
 
+    //add item to bodyBox
     if (source.droppableId === 'sideContainer' && destination.droppableId === 'bodyBox') {
       const draggedItem = items[source.index];
       setBodyBoxItems((prevItems) => {
         const updatedItems = [...prevItems];
         updatedItems.splice(destination.index, 0, draggedItem);
-        //console.log('bodyItems', updatedItems);
+
         return updatedItems;
       });
     }
 
-    if (source.droppableId === 'sideContainer' && destination.droppableId === 'footer') {
+    // add text to footer
+    if (
+      source.droppableId === 'sideContainer' &&
+      destination.droppableId === 'footer' &&
+      typeOfItem === 'Text'
+    ) {
       const draggedItem = items[source.index];
+
       setFooterItems((prevItems) => {
         const updatedItems = [...prevItems];
         updatedItems.splice(destination.index, 0, draggedItem);
-        //console.log('footerItems', updatedItems);
+
+        return updatedItems;
+      });
+    }
+
+    //Transfer items from header to bodyBox
+    if (source.droppableId === 'header' && destination.droppableId === 'bodyBox') {
+      const draggedItem = headerItems[source.index];
+
+      setBodyBoxItems((prevItems) => {
+        const updatedItems = [...prevItems];
+        updatedItems.splice(destination.index, 0, draggedItem);
+
+        return updatedItems;
+      });
+
+      setHeaderItems((prevItems) => {
+        const updatedItems = [...prevItems];
+        updatedItems.splice(draggedItem, 1);
+
+        return updatedItems;
+      });
+    }
+
+    //Transfer images from bodyBox to header
+    if (
+      source.droppableId === 'bodyBox' &&
+      destination.droppableId === 'header' &&
+      typeOfItem === 'Image'
+    ) {
+      const draggedItem = bodyBoxItems[source.index];
+
+      setHeaderItems((prevItems) => {
+        const updatedItems = [...prevItems];
+        updatedItems.splice(destination.index, 0, draggedItem);
+
+        return updatedItems;
+      });
+
+      setBodyBoxItems((prevItems) => {
+        const updatedItems = [...prevItems];
+        updatedItems.splice(draggedItem, 1);
+
+        return updatedItems;
+      });
+    }
+
+    //Delete items in use (not specified in task but may be useful)
+    //delete from HEADER
+    if (source.droppableId === 'header' && destination.droppableId === 'sideContainer') {
+      const draggedItem = headerItems[source.index];
+      setHeaderItems((prevItems) => {
+        const updatedItems = [...prevItems];
+        updatedItems.splice(draggedItem, 1);
+
+        return updatedItems;
+      });
+    }
+
+    //delete from BODYBOX
+    if (source.droppableId === 'bodyBox' && destination.droppableId === 'sideContainer') {
+      const draggedItem = bodyBoxItems[source.index];
+      setBodyBoxItems((prevItems) => {
+        const updatedItems = [...prevItems];
+        updatedItems.splice(draggedItem, 1);
+
+        return updatedItems;
+      });
+    }
+
+    //delete from FOOTER
+    if (source.droppableId === 'footer' && destination.droppableId === 'sideContainer') {
+      const draggedItem = footerItems[source.index];
+      setFooterItems((prevItems) => {
+        const updatedItems = [...prevItems];
+        updatedItems.splice(draggedItem, 1);
+
         return updatedItems;
       });
     }
@@ -84,7 +206,7 @@ const App = () => {
                 {headerItems.map((item, index) => (
                   <Draggable
                     key={`${item.name}_${index}`}
-                    draggableId={`${item.name}_${index}`}
+                    draggableId={`${item.name}_h.${index}`}
                     index={index}
                   >
                     {(provided) => (
@@ -94,7 +216,7 @@ const App = () => {
                         {...provided.dragHandleProps}
                         className="itemHeader"
                       >
-                        {item.name}
+                        {item.name}_{index}
                       </div>
                     )}
                   </Draggable>
@@ -117,7 +239,7 @@ const App = () => {
                 {bodyBoxItems.map((item, index) => (
                   <Draggable
                     key={`${item.name}_${index}`}
-                    draggableId={`${item.name}_${index}`}
+                    draggableId={`${item.name}_b.${index}`}
                     index={index}
                   >
                     {(provided) => (
@@ -127,7 +249,7 @@ const App = () => {
                         {...provided.dragHandleProps}
                         className="itemBodyBox"
                       >
-                        {item.name}
+                        {item.name}_{index}
                       </div>
                     )}
                   </Draggable>
@@ -150,7 +272,7 @@ const App = () => {
                 {footerItems.map((item, index) => (
                   <Draggable
                     key={`${item.name}_${index}`}
-                    draggableId={`${item.name}_${index}`}
+                    draggableId={`${item.name}_f.${index}`}
                     index={index}
                   >
                     {(provided) => (
@@ -160,7 +282,7 @@ const App = () => {
                         {...provided.dragHandleProps}
                         className="itemFooter"
                       >
-                        {item.name}
+                        {item.name}_{index}
                       </div>
                     )}
                   </Draggable>
