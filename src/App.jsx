@@ -3,9 +3,21 @@ import './App.css';
 import { useState } from 'react';
 
 const DATA = [
-  { name: 'Image', id: 0 },
-  { name: 'Text', id: 1 },
-  { name: 'Table', id: 2 },
+  {
+    name: 'Text',
+    id: 0,
+    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1689971389/Icons/text_jvni1q.png',
+  },
+  {
+    name: 'Image',
+    id: 1,
+    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1689971398/Icons/imagen_sil5ci.png',
+  },
+  {
+    name: 'Table',
+    id: 2,
+    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1689971395/Icons/cuadricula-de-mesa_xuamv8.png',
+  },
 ];
 
 const App = () => {
@@ -194,106 +206,120 @@ const App = () => {
   return (
     <div className="layout__wrapper">
       <DragDropContext onDragEnd={handleDragDrop}>
-        <div className="header">
-          <Droppable droppableId="header">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                className="headerContainer"
-                {...provided.droppableProps}
-              >
-                Header
-                {headerItems.map((item, index) => (
-                  <Draggable
-                    key={`${item.name}_${index}`}
-                    draggableId={`${item.name}_h.${index}`}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <div
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                        {...provided.dragHandleProps}
-                        className="itemHeader"
-                      >
-                        {item.name}_{index}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </div>
+        <div className="dashboard">
+          <div className="header">
+            <h4>Header</h4>
+            <Droppable droppableId="header">
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  className="headerContainer"
+                  {...provided.droppableProps}
+                >
+                  {headerItems.length === 0 && (
+                    <h5>Drag and drop one element within this area</h5>
+                  )}
+                  {headerItems.map((item, index) => (
+                    <Draggable
+                      key={`${item.name}_${index}`}
+                      draggableId={`${item.name}_h.${index}`}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          className="itemHeader"
+                        >
+                          <img className="icon" src={item.icon} alt={item.name} />
+                          {item.name}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
 
-        <div className="bodyBox">
-          <Droppable droppableId="bodyBox">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                className="bodyBoxContainer"
-                {...provided.droppableProps}
-              >
-                Body
-                {bodyBoxItems.map((item, index) => (
-                  <Draggable
-                    key={`${item.name}_${index}`}
-                    draggableId={`${item.name}_b.${index}`}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <div
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                        {...provided.dragHandleProps}
-                        className="itemBodyBox"
-                      >
-                        {item.name}_{index}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </div>
+          <div className="bodyBox">
+            <h4>Body</h4>
+            <Droppable droppableId="bodyBox">
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  className="bodyBoxContainer"
+                  {...provided.droppableProps}
+                >
+                  {bodyBoxItems.length === 0 && (
+                    <h5>Drag and drop one element within this area</h5>
+                  )}
+                  {bodyBoxItems.map((item, index) => (
+                    <Draggable
+                      key={`${item.name}_${index}`}
+                      draggableId={`${item.name}_b.${index}`}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          className="itemBodyBox"
+                        >
+                          <img className="icon" src={item.icon} alt={item.name} />
+                          {item.name}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
 
-        <div className="footer">
-          <Droppable droppableId="footer">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                className="footerContainer"
-                {...provided.droppableProps}
-              >
-                Footer
-                {footerItems.map((item, index) => (
-                  <Draggable
-                    key={`${item.name}_${index}`}
-                    draggableId={`${item.name}_f.${index}`}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <div
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                        {...provided.dragHandleProps}
-                        className="itemFooter"
-                      >
-                        {item.name}_{index}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <div className="footer">
+            <h4>Footer</h4>
+            <Droppable droppableId="footer">
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  className="footerContainer"
+                  {...provided.droppableProps}
+                >
+                  {footerItems.length === 0 && (
+                    <h5>Drag and drop one element within this area</h5>
+                  )}
+                  {footerItems.map((item, index) => (
+                    <Draggable
+                      key={`${item.name}_${index}`}
+                      draggableId={`${item.name}_f.${index}`}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          className="itemFooter"
+                        >
+                          <img className="icon" src={item.icon} alt={item.name} />
+                          {item.name}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
         </div>
-
         <div className="sideContainer">
+          <h4>Elements</h4>
           <Droppable droppableId="sideContainer">
             {(provided) => (
               <div
@@ -310,6 +336,7 @@ const App = () => {
                         {...provided.dragHandleProps}
                         className="itemSideContainer"
                       >
+                        <img className="icon" src={item.icon} alt={item.name} />
                         {item.name}
                       </div>
                     )}
