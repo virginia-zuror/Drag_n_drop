@@ -291,12 +291,12 @@ const App = () => {
           </div>
         </div>
         <div className="sideContainer">
-          <h4 className="title">Elements</h4>
+          <h4 className="sideTitle">Elements</h4>
           <Droppable droppableId="sideContainer">
             {(provided) => (
               <div
                 ref={provided.innerRef}
-                className="itemsSideContainer"
+                className="itemsList"
                 {...provided.droppableProps}
               >
                 {items.map((item, index) => (
