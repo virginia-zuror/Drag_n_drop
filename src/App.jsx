@@ -6,17 +6,17 @@ const DATA = [
   {
     name: 'Text',
     id: 0,
-    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1689971389/Icons/text_jvni1q.png',
+    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1690015392/Icons/text_xfvuub.png',
   },
   {
     name: 'Image',
     id: 1,
-    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1689971398/Icons/imagen_sil5ci.png',
+    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1690015300/Icons/imagen_fzt2n8.png',
   },
   {
     name: 'Table',
     id: 2,
-    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1689971395/Icons/cuadricula-de-mesa_xuamv8.png',
+    icon: 'https://res.cloudinary.com/do7bnejaz/image/upload/v1690015499/Icons/cuadricula-de-mesa_rund7b.png',
   },
 ];
 
@@ -167,40 +167,6 @@ const App = () => {
         return updatedItems;
       });
     }
-
-    //Delete items in use (not specified in task but may be useful)
-    //delete from HEADER
-    if (source.droppableId === 'header' && destination.droppableId === 'sideContainer') {
-      const draggedItem = headerItems[source.index];
-      setHeaderItems((prevItems) => {
-        const updatedItems = [...prevItems];
-        updatedItems.splice(draggedItem, 1);
-
-        return updatedItems;
-      });
-    }
-
-    //delete from BODYBOX
-    if (source.droppableId === 'bodyBox' && destination.droppableId === 'sideContainer') {
-      const draggedItem = bodyBoxItems[source.index];
-      setBodyBoxItems((prevItems) => {
-        const updatedItems = [...prevItems];
-        updatedItems.splice(draggedItem, 1);
-
-        return updatedItems;
-      });
-    }
-
-    //delete from FOOTER
-    if (source.droppableId === 'footer' && destination.droppableId === 'sideContainer') {
-      const draggedItem = footerItems[source.index];
-      setFooterItems((prevItems) => {
-        const updatedItems = [...prevItems];
-        updatedItems.splice(draggedItem, 1);
-
-        return updatedItems;
-      });
-    }
   };
 
   return (
@@ -208,7 +174,7 @@ const App = () => {
       <DragDropContext onDragEnd={handleDragDrop}>
         <div className="dashboard">
           <div className="header">
-            <h4>Header</h4>
+            <h4 className="title">Header</h4>
             <Droppable droppableId="header">
               {(provided) => (
                 <div
@@ -217,7 +183,9 @@ const App = () => {
                   {...provided.droppableProps}
                 >
                   {headerItems.length === 0 && (
-                    <h5>Drag and drop one element within this area</h5>
+                    <h5 className="default">
+                      Drag and drop one element within this area
+                    </h5>
                   )}
                   {headerItems.map((item, index) => (
                     <Draggable
@@ -245,7 +213,7 @@ const App = () => {
           </div>
 
           <div className="bodyBox">
-            <h4>Body</h4>
+            <h4 className="title">Body</h4>
             <Droppable droppableId="bodyBox">
               {(provided) => (
                 <div
@@ -254,7 +222,9 @@ const App = () => {
                   {...provided.droppableProps}
                 >
                   {bodyBoxItems.length === 0 && (
-                    <h5>Drag and drop one element within this area</h5>
+                    <h5 className="default">
+                      Drag and drop one element within this area
+                    </h5>
                   )}
                   {bodyBoxItems.map((item, index) => (
                     <Draggable
@@ -282,7 +252,7 @@ const App = () => {
           </div>
 
           <div className="footer">
-            <h4>Footer</h4>
+            <h4 className="title">Footer</h4>
             <Droppable droppableId="footer">
               {(provided) => (
                 <div
@@ -291,7 +261,9 @@ const App = () => {
                   {...provided.droppableProps}
                 >
                   {footerItems.length === 0 && (
-                    <h5>Drag and drop one element within this area</h5>
+                    <h5 className="default">
+                      Drag and drop one element within this area
+                    </h5>
                   )}
                   {footerItems.map((item, index) => (
                     <Draggable
@@ -319,24 +291,35 @@ const App = () => {
           </div>
         </div>
         <div className="sideContainer">
-          <h4>Elements</h4>
+          <h4 className="sideTitle">Elements</h4>
           <Droppable droppableId="sideContainer">
             {(provided) => (
               <div
                 ref={provided.innerRef}
-                className="itemsSideContainer"
+                className="itemsList"
                 {...provided.droppableProps}
               >
                 {items.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.name} index={index}>
-                    {(provided) => (
+                    {(provided, snapshot) => (
                       <div
                         {...provided.draggableProps}
                         ref={provided.innerRef}
+                        style={{
+                          boxShadow: snapshot.isDragging && 'none',
+                          color: snapshot.isDragging && '#1E4054',
+                          border: snapshot.isDragging && '1px #C2C2C2 solid',
+                          ...provided.draggableProps.style,
+                        }}
                         {...provided.dragHandleProps}
                         className="itemSideContainer"
                       >
-                        <img className="icon" src={item.icon} alt={item.name} />
+                        <img
+                          className="icon"
+                          src={item.icon}
+                          alt={item.name}
+                          style={{ filter: snapshot.isDragging && 'brightness(50%)' }}
+                        />
                         {item.name}
                       </div>
                     )}
