@@ -167,40 +167,6 @@ const App = () => {
         return updatedItems;
       });
     }
-
-    //Delete items in use (not specified in task but may be useful)
-    //delete from HEADER
-    if (source.droppableId === 'header' && destination.droppableId === 'sideContainer') {
-      const draggedItem = headerItems[source.index];
-      setHeaderItems((prevItems) => {
-        const updatedItems = [...prevItems];
-        updatedItems.splice(draggedItem, 1);
-
-        return updatedItems;
-      });
-    }
-
-    //delete from BODYBOX
-    if (source.droppableId === 'bodyBox' && destination.droppableId === 'sideContainer') {
-      const draggedItem = bodyBoxItems[source.index];
-      setBodyBoxItems((prevItems) => {
-        const updatedItems = [...prevItems];
-        updatedItems.splice(draggedItem, 1);
-
-        return updatedItems;
-      });
-    }
-
-    //delete from FOOTER
-    if (source.droppableId === 'footer' && destination.droppableId === 'sideContainer') {
-      const draggedItem = footerItems[source.index];
-      setFooterItems((prevItems) => {
-        const updatedItems = [...prevItems];
-        updatedItems.splice(draggedItem, 1);
-
-        return updatedItems;
-      });
-    }
   };
 
   return (
