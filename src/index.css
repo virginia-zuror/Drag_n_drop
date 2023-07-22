@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+
 *{
   box-sizing: border-box;
   margin: 0;
@@ -6,11 +9,9 @@
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
-  font-weight: 600;
-  font-size: large;
-
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,6 +20,7 @@
 
   --primary-color: #3A6B88;
   --secondary-color: #F6F6F6;
+  --default-text-color: #1E4054;
   --dash-border-color: #3A6B88;
 }
 
@@ -29,7 +31,7 @@ body {
   place-items: center;
   width: 100vw;
   color: var(--primary-color);
-  overflow-x: hidden;
+  
 }
 
 
