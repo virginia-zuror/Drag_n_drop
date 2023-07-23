@@ -102,6 +102,7 @@ const App = () => {
     //add item to bodyBox
     if (source.droppableId === 'sideContainer' && destination.droppableId === 'bodyBox') {
       const draggedItem = items[source.index];
+
       setBodyBoxItems((prevItems) => {
         const updatedItems = [...prevItems];
         updatedItems.splice(destination.index, 0, draggedItem);
@@ -128,11 +129,11 @@ const App = () => {
 
     //Transfer items from header to bodyBox
     if (source.droppableId === 'header' && destination.droppableId === 'bodyBox') {
-      const draggedItem = headerItems[source.index];
+      const draggedItem = source.index;
 
       setBodyBoxItems((prevItems) => {
         const updatedItems = [...prevItems];
-        updatedItems.splice(destination.index, 0, draggedItem);
+        updatedItems.splice(destination.index, 0, headerItems[draggedItem]);
 
         return updatedItems;
       });
@@ -151,13 +152,13 @@ const App = () => {
       destination.droppableId === 'header' &&
       typeOfItem === 'Image'
     ) {
-      const draggedItem = bodyBoxItems[source.index];
+      const draggedItem = source.index;
 
       setHeaderItems((prevItems) => {
-        const updatedItems = [...prevItems];
-        updatedItems.splice(destination.index, 0, draggedItem);
+        const updatedHeaderItems = [...prevItems];
+        updatedHeaderItems.splice(destination.index, 0, bodyBoxItems[draggedItem]);
 
-        return updatedItems;
+        return updatedHeaderItems;
       });
 
       setBodyBoxItems((prevItems) => {
